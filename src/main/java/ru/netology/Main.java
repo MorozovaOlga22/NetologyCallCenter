@@ -71,8 +71,11 @@ public class Main {
             for (int i = 0; i < TIMES_TO_CALL; i++) {
                 for (int j = 0; j < CALLS_COUNT; j++) {
                     final int callNumber = i * CALLS_COUNT + j;
-                    System.out.println("Entered call " + callNumber);
-                    callQueue.add(new Call(callNumber));
+                    if (callQueue.offer(new Call(callNumber))) {
+                        System.out.println("Входящий звонок " + callNumber + " добавлен в очередь");
+                    } else {
+                        System.out.println("Входящий звонок " + callNumber + " проигнорирован");
+                    }
                 }
                 try {
                     Thread.sleep(TIME_BETWEEN_CALLS);
